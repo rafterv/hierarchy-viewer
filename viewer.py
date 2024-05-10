@@ -46,6 +46,7 @@ def generateImageFromDot(dot_filename, image_filename):
     try:
         subprocess.run(["dot", "-Tpng", dot_filename, "-o", image_filename], check=True)
         print(f"Generated image: {image_filename}")
+        print()
     except subprocess.CalledProcessError as e:
         print(f"Error generating image: {e}")
 
@@ -110,7 +111,6 @@ def makeGraph(df, cols, fromCol, toCol, displayCol, groupCol, valueCol, rev, all
 
     # add digraph around
     shape = 'Mrecord' if valueCol is None else 'circle'
-    print(f'rankdir is "{rankdir}"')
     s = (f'digraph d {{\n'
         + f'\tgraph [rankdir="{rankdir}"; compound="True" color="Gray"];\n'
         + f'\tnode [shape="{shape}" style="bold" color="#00ade5" fontcolor="#000046"]'
@@ -120,6 +120,7 @@ def makeGraph(df, cols, fromCol, toCol, displayCol, groupCol, valueCol, rev, all
     with open(f"{filename}.dot", "w") as file:
         file.write(s)
     print(f'Generated "{filename}.dot"')
+    print()
 
     # Generate local image using Graphviz dot command
     generateImageFromDot(f"{filename}.dot", f"{filename}.png")
@@ -129,6 +130,7 @@ def makeGraph(df, cols, fromCol, toCol, displayCol, groupCol, valueCol, rev, all
     s = f'http://magjac.com/graphviz-visual-editor/?dot={s}'
     webbrowser.open(s)
     print(f"GraphViz URL: {s}")
+    print()
 
 # inspired by https://codepen.io/brendandougan/pen/PpEzRp
 def makeTree(df, fromCol, toCol, displayCol, valueCol, filename):
@@ -156,6 +158,7 @@ def makeTree(df, fromCol, toCol, displayCol, valueCol, filename):
     with open(f"{filename}.json", "w") as file:
         file.write(j)
     print(f'Generated "{filename}.json"')
+    print()
 
     # create HTML file from template customized with our JSON dump
     with open(f"data/template.html", "r") as file:
@@ -165,11 +168,11 @@ def makeTree(df, fromCol, toCol, displayCol, valueCol, filename):
     with open(f"{filename}.html", "w") as file:
         file.write(s)
     print(f'Generated "{filename}.html"')
+    print()
     #webbrowser.open(s)
    
 def main():
     args = processArgs()
-    print(f'Direction is "{args.rankdir}"')
 
     df = pd.read_csv(f"{args.filename}.csv").convert_dtypes()
     cols = list(map(str.upper, df.columns.values.tolist()))

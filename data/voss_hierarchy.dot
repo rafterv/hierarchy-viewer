@@ -1,5 +1,5 @@
 digraph d {
-	graph [rankdir="BT"; compound="True" color="Gray"];
+	graph [rankdir="LR"; compound="True" color="Gray"];
 	node [shape="Mrecord" style="bold" color="#00ade5" fontcolor="#000046"]	edge [color="#000046"];
 	nhcs [label="hcs"];
 	nOctan [label="Octan"];
