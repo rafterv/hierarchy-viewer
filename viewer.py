@@ -100,14 +100,14 @@ def makeGraph(df, cols, fromCol, toCol, displayCol, groupCol, valueCol, rev, all
             display = (f' [ label=<<table style="rounded" border="0" cellborder="0" cellspacing="0" cellpadding="1">\n'
                 + f'\t\t<tr><td align="center" colspan="2"><font color="#000000"><b>{label}</b></font></td></tr>\n'
                 + f'{vals}\t\t</table>> ]')
-        s += f'\n\t{t}n{str(row[fromCol])}{display};'
+        s += f'\n\t{t}"n{str(row[fromCol])}"{display};'
     if groupCol is not None and g is not None: s += '\n\t}'
 
     # add links
     for i, row in df.iterrows():
         if not pd.isna(row[toCol]):
-            if rev: s += f'\n\tn{str(row[toCol])} -> n{str(row[fromCol])};'
-            else: s += f'\n\tn{str(row[fromCol])} -> n{str(row[toCol])};'
+            if rev: s += f'\n\t"n{str(row[toCol])}" -> "n{str(row[fromCol])}";'
+            else: s += f'\n\t"n{str(row[fromCol])}" -> "n{str(row[toCol])}";'
 
     # add digraph around
     shape = 'Mrecord' if valueCol is None else 'circle'

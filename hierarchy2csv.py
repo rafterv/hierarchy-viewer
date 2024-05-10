@@ -40,9 +40,10 @@ with open(input_file, 'r') as file:
     paths = file.readlines()
 
 # Derive output file name
-output_file = input_file.split('.')[0] + '_hierarchy.csv'
+output_file = input_file.split('.')[0] + '.csv'
 
 hierarchy = create_hierarchy(paths)
 write_to_csv(hierarchy, output_file)
 
-print(f"Hierarchy written to {output_file}")
+print(f"Generated file: {output_file}")
+print()

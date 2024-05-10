@@ -7,6 +7,9 @@
 node_modules/
 dist/
 
+# Ignore Test Data
+data/
+
 # Compiled Java class files
 *.class
 
