@@ -1,6 +1,6 @@
 Hierarchy Viewer
 ================
-This package is designed to automate the process of converting a hierarchical dataset into a graphical representation.This builds on the original repo from cristiscu. `visualiser.py` is the main script,it calls two other scripts, `hierarchy2csv.py` and `viewer.py`, to generate a graph visualization based on the input data.
+This package is designed to automate the process of converting a hierarchical dataset into a graphical representation.This builds on the original repo from cristiscu. `viewer.py` is the main script,it calls two other scripts, `hierarchy2csv.py` and `processor.py`, to generate a graph visualization based on the input data.
 
 Requirements
 ================
@@ -11,7 +11,7 @@ Requirements
 Usage
 ================
 ```bash
-python main_script.py <filename> [<graphdirection>]
+python viewer.py <filename> [<graphdirection>]
 ```
 
 - `<filename>`: Path to the input hierarchical dataset file. The file should be in a supported format.
