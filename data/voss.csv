@@ -1,0 +1,16 @@
+NODE,PARENT
+sys,
+hcs,sys
+Octan,hcs
+ContosoElectronics,Octan
+TCS,Octan
+Bristol,ContosoElectronics
+Clapton,ContosoElectronics
+EMEA,ContosoElectronics
+Germany,EMEA
+SouthAfrica,EMEA
+Dammam,TCS
+Jeddah,TCS
+Mecca,TCS
+Qassem,TCS
+Riyadh,TCS

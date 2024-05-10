@@ -1,0 +1,57 @@
+{
+    "name": "sys",
+    "children": [
+        {
+            "name": "hcs",
+            "children": [
+                {
+                    "name": "Octan",
+                    "children": [
+                        {
+                            "name": "ContosoElectronics",
+                            "children": [
+                                {
+                                    "name": "Bristol"
+                                },
+                                {
+                                    "name": "Clapton"
+                                },
+                                {
+                                    "name": "EMEA",
+                                    "children": [
+                                        {
+                                            "name": "Germany"
+                                        },
+                                        {
+                                            "name": "SouthAfrica"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "TCS",
+                            "children": [
+                                {
+                                    "name": "Dammam"
+                                },
+                                {
+                                    "name": "Jeddah"
+                                },
+                                {
+                                    "name": "Mecca"
+                                },
+                                {
+                                    "name": "Qassem"
+                                },
+                                {
+                                    "name": "Riyadh"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

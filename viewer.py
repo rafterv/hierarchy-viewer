@@ -6,6 +6,7 @@ Company:       XtractPro Software
 
 import sys, json, argparse, webbrowser, urllib.parse
 import pandas as pd
+import subprocess
 
 def showUsage(msg=''):
     if len(msg) > 0: print(msg)
@@ -13,6 +14,7 @@ def showUsage(msg=''):
         "--f filename        - [required] CSV file name (with no file extension)\n"
         "--from column-name  - [required] name of the source child relationship column (used as identifier)\n"
         "--to column-name    - [required] name of the target parent relationship column (used as foreign key)\n"
+        "--rankdir direction - [optional] direction of graph layout (LR=LeftRight, RL=RightLeft, TB=TopBottom, BT=BottomTop)\n"
         "--rev               - [optional] when true, the arrow will be directed from parent to child\n"
         "--d column-name     - [optional] name of a display column (or the 'from' column name will be used by default)\n"
         "--g column-name     - [optional] name of a column to group objects by\n"
@@ -25,6 +27,7 @@ def processArgs():
     parser.add_argument('--f', dest='filename')
     parser.add_argument('--from', dest='fromCol')
     parser.add_argument('--to', dest='toCol')
+    parser.add_argument('--rankdir', dest='rankdir', choices=['LR', 'RL', 'TB', 'BT'], default='LR')
     parser.add_argument('--rev', dest='rev', action=argparse.BooleanOptionalAction)
     parser.add_argument('--d', dest='displayCol')
     parser.add_argument('--g', dest='groupCol')
@@ -35,11 +38,18 @@ def processArgs():
     if (args.filename == None
         or args.fromCol == None
         or args.toCol == None):
-        showUsage("You miss at least one required argument!")
+        showUsage("You missed at least one required argument!")
 
     return args
 
-def makeGraph(df, cols, fromCol, toCol, displayCol, groupCol, valueCol, rev, all, filename):
+def generateImageFromDot(dot_filename, image_filename):
+    try:
+        subprocess.run(["dot", "-Tpng", dot_filename, "-o", image_filename], check=True)
+        print(f"Generated image: {image_filename}")
+    except subprocess.CalledProcessError as e:
+        print(f"Error generating image: {e}")
+
+def makeGraph(df, cols, fromCol, toCol, displayCol, groupCol, valueCol, rev, all, filename, rankdir):
     s = ""; t = ""
 
     # calculate in, max, to scale values between 1..3 inches
@@ -100,19 +110,25 @@ def makeGraph(df, cols, fromCol, toCol, displayCol, groupCol, valueCol, rev, all
 
     # add digraph around
     shape = 'Mrecord' if valueCol is None else 'circle'
+    print(f'rankdir is "{rankdir}"')
     s = (f'digraph d {{\n'
-        + f'\tgraph [rankdir="LR"; compound="True" color="Gray"];\n'
-        + f'\tnode [shape="{shape}" style="filled" color="SkyBlue"]'
+        + f'\tgraph [rankdir="{rankdir}"; compound="True" color="Gray"];\n'
+        + f'\tnode [shape="{shape}" style="bold" color="#00ade5" fontcolor="#000046"]'
+        + f'\tedge [color="#000046"];'
         + f'{s}\n}}')
 
     with open(f"{filename}.dot", "w") as file:
         file.write(s)
     print(f'Generated "{filename}.dot"')
 
+    # Generate local image using Graphviz dot command
+    generateImageFromDot(f"{filename}.dot", f"{filename}.png")
+
     # url-encode as query string for remote Graphviz Visual Editor
     s = urllib.parse.quote(s)
     s = f'http://magjac.com/graphviz-visual-editor/?dot={s}'
     webbrowser.open(s)
+    print(f"GraphViz URL: {s}")
 
 # inspired by https://codepen.io/brendandougan/pen/PpEzRp
 def makeTree(df, fromCol, toCol, displayCol, valueCol, filename):
@@ -153,6 +169,7 @@ def makeTree(df, fromCol, toCol, displayCol, valueCol, filename):
    
 def main():
     args = processArgs()
+    print(f'Direction is "{args.rankdir}"')
 
     df = pd.read_csv(f"{args.filename}.csv").convert_dtypes()
     cols = list(map(str.upper, df.columns.values.tolist()))
@@ -181,7 +198,7 @@ def main():
         if valueCol not in cols: showUsage("'value' column not found!")
 
     # generates and open GraphViz DOT graph, and D3 collapsible tree
-    makeGraph(df, cols, fromCol, toCol, displayCol, groupCol, valueCol, args.rev, args.all, args.filename)
+    makeGraph(df, cols, fromCol, toCol, displayCol, groupCol, valueCol, args.rev, args.all, args.filename, args.rankdir)
     makeTree(df, fromCol, toCol, displayCol, valueCol, args.filename)
 
 if __name__ == '__main__':
