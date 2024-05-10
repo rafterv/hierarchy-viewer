@@ -10,8 +10,6 @@ def create_hierarchy(paths):
             top_node = nodes[0]
         parent = None
         for node in nodes:
-            # Remove whitespace characters
-            node = node.replace(" ", "")
             if parent:
                 hierarchy[node] = parent
             parent = node
