@@ -1,9 +1,0 @@
-sys.hcs.Octan.ContosoElectronics.Bristol
-sys.hcs.Octan.ContosoElectronics.Clapton
-sys.hcs.Octan.ContosoElectronics.EMEA.Germany
-sys.hcs.Octan.ContosoElectronics.EMEA.South Africa
-sys.hcs.Octan.TCS.Dammam
-sys.hcs.Octan.TCS.Jeddah
-sys.hcs.Octan.TCS.Mecca
-sys.hcs.Octan.TCS.Qassem
-sys.hcs.Octan.TCS.Riyadh
