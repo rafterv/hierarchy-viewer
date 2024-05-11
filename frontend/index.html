@@ -1,0 +1,26 @@
+<!-- frontend/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hierarchy Viewer</title>
+    <!-- Add any necessary CSS files -->
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+</head>
+<body>
+    <h1>Welcome to Hierarchy Viewer!</h1>
+    
+    <!-- File Upload Form -->
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" name="fileInput" id="fileInput">
+        <button type="submit">Upload File</button>
+    </form>
+
+    <!-- Display Results -->
+    <div id="results"></div>
+    
+    <!-- Add any necessary JavaScript files -->
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

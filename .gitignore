@@ -9,6 +9,7 @@ dist/
 
 # Ignore Test Data
 data/
+uploads/
 
 # Compiled Java class files
 *.class
@@ -55,3 +56,5 @@ Thumbs.db
 build/
 *.spec
 venv/
+frontend/underground.png
+frontend/underground.png:Zone.Identifier
