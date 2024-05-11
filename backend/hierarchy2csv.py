@@ -1,5 +1,6 @@
 import csv
 import sys
+import os
 
 def create_hierarchy(paths):
     hierarchy = {}
@@ -38,7 +39,7 @@ with open(input_file, 'r') as file:
     paths = file.readlines()
 
 # Derive output file name
-output_file = input_file.split('.')[0] + '.csv'
+output_file = os.path.splitext(input_file)[0] + '.csv'
 
 hierarchy = create_hierarchy(paths)
 write_to_csv(hierarchy, output_file)

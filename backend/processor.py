@@ -161,7 +161,7 @@ def makeTree(df, fromCol, toCol, displayCol, valueCol, filename):
     print()
 
     # create HTML file from template customized with our JSON dump
-    with open(f"data/template.html", "r") as file:
+    with open(f"../data/template.html", "r") as file:
         s = file.read()
 
     s = s.replace('"{{data}}"', j)
