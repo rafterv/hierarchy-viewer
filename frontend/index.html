@@ -17,6 +17,9 @@
         <button type="submit">Upload File</button>
     </form>
 
+    <!-- Add a line of space between upload button and download links -->
+    <div id="downloadLinks"></div>
+
     <!-- Display Results -->
     <div id="results"></div>
     
@@ -26,9 +29,6 @@
     <div>
         <a id="htmlLink" href="#" target="_blank">Open HTML File</a>
     </div>
-    <h2>Dynamic Hierarchy View</h2>
-    <!-- Embed HTML file in an iframe -->
-    <iframe id="htmlIframe" width="100%" height="600"></iframe>
 
     <script>
         // Function to update the HTML hyperlink dynamically
@@ -39,8 +39,12 @@
 
         // Function to embed HTML file in an iframe
         function embedHtmlFile(url) {
-            var htmlIframe = document.getElementById('htmlIframe');
-            htmlIframe.src = url;
+            var dynamicHtmlTitle = document.getElementById('dynamicHtmlTitle');
+            var iframe = document.createElement('iframe');
+            iframe.src = url;
+            iframe.width = '100%';
+            iframe.height = '600';
+            dynamicHtmlTitle.parentNode.insertBefore(iframe, dynamicHtmlTitle.nextSibling);
         }
 
         // Function to handle the response after file upload and processing
