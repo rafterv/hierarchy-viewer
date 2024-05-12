@@ -3,7 +3,7 @@ Created By:    Cristian Scutaru
 Creation Date: Aug 2023
 Company:       XtractPro Software
 """
-
+# ./backend/processor.py
 import sys, json, argparse, webbrowser, urllib.parse
 import pandas as pd
 import subprocess
@@ -45,8 +45,8 @@ def processArgs():
 def generateImageFromDot(dot_filename, image_filename):
     try:
         subprocess.run(["dot", "-Tpng", dot_filename, "-o", image_filename], check=True)
-        print(f"Generated image: {image_filename}")
-        print()
+        # print(f"Generated image: {image_filename}")
+        # print()
     except subprocess.CalledProcessError as e:
         print(f"Error generating image: {e}")
 
@@ -119,18 +119,22 @@ def makeGraph(df, cols, fromCol, toCol, displayCol, groupCol, valueCol, rev, all
 
     with open(f"{filename}.dot", "w") as file:
         file.write(s)
-    print(f'Generated "{filename}.dot"')
-    print()
+    # print(f'Generated "{filename}.dot"')
+    # print()
 
     # Generate local image using Graphviz dot command
     generateImageFromDot(f"{filename}.dot", f"{filename}.png")
+    png_download = filename + ".png"
+
 
     # url-encode as query string for remote Graphviz Visual Editor
     s = urllib.parse.quote(s)
     s = f'http://magjac.com/graphviz-visual-editor/?dot={s}'
-    webbrowser.open(s)
-    print(f"GraphViz URL: {s}")
-    print()
+    # webbrowser.open(s)
+    magjac_download = s
+    # print(f"GraphViz URL: {magjac_download}")
+    # print()
+    return png_download, magjac_download
 
 # inspired by https://codepen.io/brendandougan/pen/PpEzRp
 def makeTree(df, fromCol, toCol, displayCol, valueCol, filename):
@@ -157,22 +161,26 @@ def makeTree(df, fromCol, toCol, displayCol, valueCol, filename):
     j = json.dumps(head, indent=4)
     with open(f"{filename}.json", "w") as file:
         file.write(j)
-    print(f'Generated "{filename}.json"')
-    print()
+    json_download = filename + ".json"
+    # print(f'Generated "{json_download}"')
+    # print()
 
     # create HTML file from template customized with our JSON dump
-    with open(f"data/template.html", "r") as file:
+    with open(f"../data/template.html", "r") as file:
         s = file.read()
 
     s = s.replace('"{{data}}"', j)
     with open(f"{filename}.html", "w") as file:
         file.write(s)
-    print(f'Generated "{filename}.html"')
-    print()
+    html_download = filename + ".html" 
+    # print(f'Generated "{html_download}"')
+    # print()
+    return json_download, html_download
     #webbrowser.open(s)
    
 def main():
     args = processArgs()
+    args.filename = "../downloads/" + args.filename
 
     df = pd.read_csv(f"{args.filename}.csv").convert_dtypes()
     cols = list(map(str.upper, df.columns.values.tolist()))
@@ -201,8 +209,9 @@ def main():
         if valueCol not in cols: showUsage("'value' column not found!")
 
     # generates and open GraphViz DOT graph, and D3 collapsible tree
-    makeGraph(df, cols, fromCol, toCol, displayCol, groupCol, valueCol, args.rev, args.all, args.filename, args.rankdir)
-    makeTree(df, fromCol, toCol, displayCol, valueCol, args.filename)
+    png_download, magjac_download = makeGraph(df, cols, fromCol, toCol, displayCol, groupCol, valueCol, args.rev, args.all, args.filename, args.rankdir)
+    json_download, html_download = makeTree(df, fromCol, toCol, displayCol, valueCol, args.filename)
+    return
 
 if __name__ == '__main__':
   main()
