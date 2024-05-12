@@ -1,12 +1,14 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, url_for, send_file
 from werkzeug.utils import secure_filename
 import subprocess
 import os
 import time
+import json
 
 app = Flask(__name__, template_folder='../frontend', static_folder='../frontend')
 UPLOAD_FOLDER = '../uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+DOWNLOAD_FOLDER = '../downloads'
 
 def strip_extension(filename):
     # Split the filename by dot (.)
@@ -20,11 +22,13 @@ def strip_extension(filename):
 def call_viewer(viewer_filename, rankdir):
     command = [
         "python3",
-        "./viewer.py",  # Adjust the path to viewer.py based on your directory structure
+        "./viewer.py",  
         viewer_filename,
         rankdir
     ]
-    subprocess.call(command)
+    result = subprocess.run(command, capture_output=True, text=True)
+    output = json.loads(result.stdout.strip())
+    return output
 
 @app.route('/')
 def index():
@@ -46,14 +50,34 @@ def upload_file():
         filename_with_timestamp = f"{filename_without_extension}_{timestamp}"  # Append timestamp to filename without extension
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename_with_timestamp)
         print('Saving file to:', file_path)  # Debugging: Print the file path
+        print()
+        print(f"Input filename to viewer: {filename_with_timestamp}")
+        print()
         try:
             file.save(file_path)
             # Process the uploaded file
-            call_viewer(file_path, rankdir='LR')
-            return jsonify({'success': 'File uploaded and processed successfully'})
+            output = call_viewer(filename_with_timestamp, rankdir='LR')
+            return jsonify({'success': 'File uploaded and processed successfully',
+                            'download_png': output["png_download"],
+                            'download_html': output["html_download"],
+                            'download_json': output["json_download"],
+                            'download_magjac': output['magjac_download']})
+            
         except Exception as e:
             print('Error saving file:', str(e))  # Debugging: Print any errors that occur
             return jsonify({'error': 'Error saving file'})
+
+# Route for downloading a generated file
+@app.route('/downloads/<filename>')
+def download_file(filename):
+    generated_file_path = os.path.join(DOWNLOAD_FOLDER, filename)
+    if os.path.exists(generated_file_path):
+        if filename.endswith('.html'):
+            return send_file(generated_file_path, as_attachment=False)
+        else:
+            return send_file(generated_file_path, as_attachment=True)
+    else:
+        return jsonify({'error': 'File not found'})
 
 if __name__ == "__main__":
     app.run(debug=True)
