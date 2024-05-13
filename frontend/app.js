@@ -3,6 +3,8 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
     event.preventDefault();
     var formData = new FormData();
     formData.append('file', document.getElementById('fileInput').files[0]);
+    formData.append('direction', document.getElementById('directionSelect').value);    
+
 
     fetch('/upload', {
         method: 'POST',

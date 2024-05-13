@@ -45,6 +45,8 @@ def upload_file():
 
     if file:
         # Get filename without extension
+        direction = request.form['direction'] 
+        print(f"direction from HTML:{direction}")
         filename_without_extension = strip_extension(secure_filename(file.filename))
         timestamp = int(time.time())  # Get current timestamp
         filename_with_timestamp = f"{filename_without_extension}_{timestamp}"  # Append timestamp to filename without extension
@@ -56,7 +58,7 @@ def upload_file():
         try:
             file.save(file_path)
             # Process the uploaded file
-            output = call_viewer(filename_with_timestamp, rankdir='LR')
+            output = call_viewer(filename_with_timestamp, rankdir=direction)
             return jsonify({'success': 'File uploaded and processed successfully',
                             'download_png': output["png_download"],
                             'download_html': output["html_download"],
