@@ -12,10 +12,24 @@
     <h1>Welcome to Hierarchy Viewer!</h1>
     
     <!-- File Upload Form -->
-    <form id="uploadForm" enctype="multipart/form-data">
-        <input type="file" name="fileInput" id="fileInput">
-        <button type="submit">Upload File</button>
-    </form>
+    <div id="uploadSection">
+        <form id="uploadForm" enctype="multipart/form-data">
+            <input type="file" name="fileInput" id="fileInput">
+            <button type="submit">Upload File</button>
+        </form>
+        <!-- User Instructions -->
+        <div id="instructions">
+            <h2>Instructions</h2>
+            <p>Upload a text file with a list of hierarchy paths in dot notation to produce a handy diagram.</p>
+            <p>Example:</p>
+            <pre>
+                earth.region.country1.city1
+                earth.region.country1.city2
+                earth.region.country2.city1
+                earth.region.country2.city2
+            </pre>
+        </div>
+    </div>
 
     <!-- Add a line of space between upload button and download links -->
     <div id="downloadLinks"></div>
