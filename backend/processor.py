@@ -106,8 +106,8 @@ def makeGraph(df, cols, fromCol, toCol, displayCol, groupCol, valueCol, rev, all
     # add links
     for i, row in df.iterrows():
         if not pd.isna(row[toCol]):
-            if rev: s += f'\n\t"n{str(row[toCol])}" -> "n{str(row[fromCol])}";'
-            else: s += f'\n\t"n{str(row[fromCol])}" -> "n{str(row[toCol])}";'
+            if rev: s += f'\n\t"n{str(row[toCol])}" -> "n{str(row[fromCol])}" [dir=none];'
+            else: s += f'\n\t"n{str(row[fromCol])}" -> "n{str(row[toCol])}" [dir=none];'
 
     # add digraph around
     shape = 'Mrecord' if valueCol is None else 'circle'
