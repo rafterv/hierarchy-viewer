@@ -113,7 +113,7 @@ def makeGraph(df, cols, fromCol, toCol, displayCol, groupCol, valueCol, rev, all
     shape = 'Mrecord' if valueCol is None else 'circle'
     s = (f'digraph d {{\n'
         + f'\tgraph [rankdir="{rankdir}"; compound="True" color="Gray"];\n'
-        + f'\tnode [shape="{shape}" color="#00ade5" fontname="CenturyGothic" fontcolor="#000046"]'
+        + f'\tnode [shape="{shape}" style="bold" color="#00ade5" fontname="CenturyGothic" fontcolor="#000046"]'
         + f'\tedge [color="#000046"];'
         + f'{s}\n}}')
 

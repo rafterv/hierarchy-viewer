@@ -16,6 +16,17 @@
         <form id="uploadForm" enctype="multipart/form-data">
             <input type="file" name="fileInput" id="fileInput">
             <button type="submit">Upload File</button>
+            <!-- Add a line of space  -->
+            <div id="blankline"> </div>
+            <div id="graphDirectionSelection">  
+            <label for="directionSelect">Graph Direction:</label>
+            <select id="directionSelect" name="direction">
+                <option value="TB">Top Down</option>
+                <option value="LR">Left to Right</option>
+                <option value="BT">Bottom Up</option>
+                <option value="RT">Right to Left</option>
+            </select>
+            </div>
         </form>
         <!-- User Instructions -->
         <div id="instructions">
