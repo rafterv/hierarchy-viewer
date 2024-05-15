@@ -25,7 +25,7 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
 
             // Add space between upload button and download links
             var spacer = document.createElement('div');
-            spacer.style.height = '20px'; // Adjust height as needed
+            spacer.style.height = '20px'; // Apply spacer class
             document.getElementById('results').appendChild(spacer);
 
             //MagJac Editor
@@ -33,7 +33,8 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
             magjacLink.href = data.download_magjac;
             magjacLink.textContent = 'Editor';
             magjacLink.target = '_blank';
-            magjacLink.style.marginRight = '40px'; // Add right margin to separate from other links
+            magjacLink.style.marginRight = '40px';
+            magjacLink.classList.add('button'); // Apply downloadLink class
             document.getElementById('results').appendChild(magjacLink);
             
             // JSON Download
@@ -41,7 +42,8 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
             downloadJsonLink.href = data.download_json;
             downloadJsonLink.textContent = 'Download JSON';
             downloadJsonLink.download = 'generated_file.json';
-            downloadJsonLink.style.marginRight = '40px'; // Add right margin to separate from other links
+            downloadJsonLink.style.marginRight = '40px';
+            downloadJsonLink.classList.add('button'); // Apply downloadLink class
             document.getElementById('results').appendChild(downloadJsonLink);
             
             // PNG Download
@@ -49,7 +51,8 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
             downloadPngLink.href = data.download_png;
             downloadPngLink.textContent = 'Download PNG';
             downloadPngLink.download = 'generated_file.png';
-            downloadPngLink.style.marginRight = '40px'; // Add right margin to separate from other links
+            downloadPngLink.style.marginRight = '40px';
+            downloadPngLink.classList.add('button'); // Apply downloadLink class
             document.getElementById('results').appendChild(downloadPngLink);
 
             // Add space between upload button and download links
@@ -74,7 +77,7 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
 
             // Add space between upload button and download links
             var spacer = document.createElement('div');
-            spacer.style.height = '20px'; // Adjust height as needed
+            spacer.classList.add('spacer'); // Apply spacer class
             document.getElementById('results').appendChild(spacer);
 
             // Embed HTML file in an iframe

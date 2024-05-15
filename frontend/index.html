@@ -5,54 +5,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hierarchy Viewer</title>
-    <!-- Add any necessary CSS files -->
-    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <!-- Link to the CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <h1>Welcome to Hierarchy Viewer!</h1>
+    <header>
+        <h1>Welcome to Hierarchy Viewer!</h1>
+    </header>
     
-    <!-- File Upload Form -->
-    <div id="uploadSection">
-        <form id="uploadForm" enctype="multipart/form-data">
-            <input type="file" name="fileInput" id="fileInput">
-            <button type="submit">Upload File</button>
-            <!-- Add a line of space  -->
-            <div id="blankline"> </div>
-            <div id="graphDirectionSelection">  
-            <label for="directionSelect">Graph Direction:</label>
-            <select id="directionSelect" name="direction">
-                <option value="TB">Top Down</option>
-                <option value="LR">Left to Right</option>
-                <option value="BT">Bottom Up</option>
-                <option value="RT">Right to Left</option>
-            </select>
+    <main>
+        <!-- File Upload Form -->
+        <div id="uploadSection">
+            <form id="uploadForm" enctype="multipart/form-data">
+                <input type="file" name="fileInput" id="fileInput">
+                <button type="submit" id="uploadButton">Upload File</button>
+                <!-- Add space between upload button and dropdown -->
+                <div class="spacer"></div>
+                <div id="graphDirectionSelection">  
+                    <label for="directionSelect">Graph Direction:</label>
+                    <select id="directionSelect" name="direction" class="select">
+                        <option value="TB">Top Down</option>
+                        <option value="LR">Left to Right</option>
+                        <option value="BT">Bottom Up</option>
+                        <option value="RT">Right to Left</option>
+                    </select>
+                </div>
+            </form>
+            <!-- User Instructions -->
+            <div id="instructions">
+                <h2>Instructions</h2>
+                <p>Upload a text file with a list of hierarchy paths in dot notation to produce a handy diagram.</p>
+                <p>Example:</p>
+                <pre>
+                    earth.region1.country1.city1
+                    earth.region1.country1.city2
+                    earth.region2.country2.city3
+                    earth.region2.country2.city4
+                </pre>
             </div>
-        </form>
-        <!-- User Instructions -->
-        <div id="instructions">
-            <h2>Instructions</h2>
-            <p>Upload a text file with a list of hierarchy paths in dot notation to produce a handy diagram.</p>
-            <p>Example:</p>
-            <pre>
-                earth.region.country1.city1
-                earth.region.country1.city2
-                earth.region.country2.city1
-                earth.region.country2.city2
-            </pre>
         </div>
-    </div>
 
-    <!-- Add a line of space between upload button and download links -->
-    <div id="downloadLinks"></div>
+        <!-- Download Links Section -->
+        <div id="downloadLinks"></div>
 
-    <!-- Display Results -->
-    <div id="results"></div>
-    
-    <!-- Add any necessary JavaScript files -->
+        <!-- Results Section -->
+        <div id="results"></div>
+    </main>
+
+    <!-- JavaScript files -->
     <script src="{{ url_for('static', filename='app.js') }}"></script>
     <!-- Hyperlink for opening HTML file -->
     <div>
-        <a id="htmlLink" href="#" target="_blank">Open HTML File</a>
+        <a id="htmlLink" href="#" target="_blank" class="button">Open HTML File</a>
     </div>
 
     <script>
