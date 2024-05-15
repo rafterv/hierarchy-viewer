@@ -9,16 +9,16 @@ import json
 import user_agents
 
 # Configure Flask app
-app = Flask(__name__, template_folder='../frontend', static_folder='../frontend')
+app = Flask(__name__, template_folder='./frontend', static_folder='./frontend')
 
 # Configure logging
 log_file_path = '/var/log/flask.log'
 logging.basicConfig(filename=log_file_path, level=logging.INFO,
                     format='%(asctime)s - %(levelname)s - %(message)s')
 
-UPLOAD_FOLDER = '../uploads'
+UPLOAD_FOLDER = './uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-DOWNLOAD_FOLDER = '../downloads'
+DOWNLOAD_FOLDER = './downloads'
 METRICS_LOG_FILE = '/var/log/metrics.log'  # Path to metrics log file
 
 
@@ -34,7 +34,7 @@ def strip_extension(filename):
 def call_viewer(viewer_filename, rankdir):
     command = [
         "python3",
-        "./viewer.py",
+        "./backend/viewer.py",
         viewer_filename,
         rankdir
     ]

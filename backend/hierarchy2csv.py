@@ -31,7 +31,7 @@ if len(sys.argv) != 2:
     print("Usage: python script.py <input_file>")
     sys.exit(1)
 
-input_file = "../uploads/" + sys.argv[1]
+input_file = "./uploads/" + sys.argv[1]
 # print(f"CSV Conversion Input Filename: {input_file}")
 # print()
 
@@ -40,7 +40,7 @@ with open(input_file, 'r') as file:
     paths = file.readlines()
 
 # Derive output file name
-output_file = "../downloads/" + sys.argv[1] + '.csv'
+output_file = "./downloads/" + sys.argv[1] + '.csv'
 # print(f"CSV File written to : {output_file}")
 # print()
 hierarchy = create_hierarchy(paths)

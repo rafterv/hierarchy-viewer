@@ -13,13 +13,13 @@ logging.basicConfig(filename=log_file_path, level=logging.INFO,
 
 def call_hierarchy2csv(filename):
     logging.info(f"Calling hierarchy2csv.py {filename}")
-    subprocess.call(["python3", "./hierarchy2csv.py", filename])
+    subprocess.call(["python3", "./backend/hierarchy2csv.py", filename])
 
 def call_processor(viewer_filename, rankdir, from_col='node', to_col='parent', rev=True, display_col=None, group_col=None, value_col=None, all=False):
-    df = pd.read_csv(f"../downloads/{viewer_filename}.csv").convert_dtypes()
+    df = pd.read_csv(f"./downloads/{viewer_filename}.csv").convert_dtypes()
     cols = list(map(str.upper, df.columns.values.tolist()))
     df = df.reset_index()
-    viewer_filename = "../downloads/" + viewer_filename
+    viewer_filename = "./downloads/" + viewer_filename
 
     # Validate column names
     fromCol = from_col.upper()
