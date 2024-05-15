@@ -1,0 +1,174 @@
+/* frontend/static/styles.css */
+
+/* Body and Header styles */
+body {
+    font-family: "Century Gothic", sans-serif;
+    background-color: #ffffff;
+    color: #000046;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+header {
+    background-color: #000046;
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+/* Main content styles */
+main {
+    padding: 20px;
+}
+
+/* Form and Instructions styles */
+#uploadSection {
+    margin-bottom: 20px;
+    text-align: center;
+    margin: 0 auto;
+    display: inline-block;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+input[type="file"]{ 
+    background-color: #007fb0;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;   
+    margin: 0 auto; /* This will center the input horizontally */
+    display: inline-block;}
+button,
+label,
+select {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/* Spacer */
+.spacer {
+    height: 20px;
+}
+
+/* Results Section styles */
+#results {
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Download Links Section styles */
+#downloadLinks {
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* User Instructions styles */
+#instructions {
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Text styles */
+p {
+    font-size: 1em;
+}
+
+pre {
+    font-family: monospace;
+    font-size: 0.9em;
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* File Upload Form styles */
+input[type="file"],
+button,
+select {
+    background-color: #007fb0;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #00587a;
+}
+
+/* Dropdown styles */
+select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #007fb0;
+}
+
+/* Button styles */
+.button {
+    background-color: #007fb0;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.button:hover {
+    background-color: #00587a;
+}
+
+/* Upload Button styles */
+#uploadButton {
+    background-color: #000046; 
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 auto;
+    display: block;
+}
+
+#uploadButton:hover {
+    background-color: #004366; 
+}
+
+/* Dropdown styles */
+#directionSelect {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #007fb0;
+    background-color: #ffffff; 
+    color: #000046; 
+    font-size: 1em; 
+    cursor: pointer;
+}
+
+/* Dropdown arrow */
+#directionSelect::after {
+    content: '\25BE'; 
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+}
+
+/* Style options */
+#directionSelect option {
+    background-color: #ffffff; 
+    color: #000046; 
+    font-size: 1em; 
+}
