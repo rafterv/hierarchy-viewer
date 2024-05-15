@@ -1,4 +1,4 @@
-# \backend\server.py
+# /backend/server.py
 import logging
 from flask import Flask, render_template, request, jsonify, url_for, send_file
 from werkzeug.utils import secure_filename
@@ -21,8 +21,6 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 DOWNLOAD_FOLDER = '../downloads'
 METRICS_LOG_FILE = '/var/log/metrics.log'  # Path to metrics log file
 
-# Create the metrics log file if it doesn't exist
-open(METRICS_LOG_FILE, 'a').close()
 
 def strip_extension(filename):
     # Split the filename by dot (.)
@@ -41,8 +39,18 @@ def call_viewer(viewer_filename, rankdir):
         rankdir
     ]
     result = subprocess.run(command, capture_output=True, text=True)
-    output = json.loads(result.stdout.strip())
-    return output
+    output = result.stdout.strip()
+    logging.info(f'Viewer output: {output}')
+    if output:
+        try:
+            json_output = json.loads(output)  # Attempt to parse the output as JSON
+            return json_output
+        except json.JSONDecodeError as e:
+            logging.error(f'Error parsing viewer output as JSON: {e}')
+            return None
+    else:
+        logging.error('Viewer output is empty')
+        return None
 
 def parse_user_agent(user_agent_string):
     user_agent = user_agents.parse(user_agent_string)
