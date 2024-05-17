@@ -8,9 +8,9 @@ node_modules/
 dist/
 
 # Ignore Test Data
-data/
-uploads/
-downloads/
+uploads/*
+downloads/*
+vagrant/
 
 # Compiled Java class files
 *.class
